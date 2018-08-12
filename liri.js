@@ -62,6 +62,9 @@ switch (siteStatement) {
   case "movie-this":
     omdb();
     break;
+  // case "my-tweets":
+    // twitter();
+    // break;
 }
 
 // Function for the siteStatement "Do-what-it-says" which uses the search in the random.txt file 
@@ -91,7 +94,6 @@ function omdb() {
   var queryUrl = "http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey=a28224d5";
   // JSON response
   request(queryUrl, function (error, response, body) {
-
     // If the JSON response is error free
     if (!error && response.statusCode === 200) {
       // console log the following from the JSON response
@@ -104,6 +106,18 @@ function omdb() {
       console.log("Plot: " + JSON.parse(body).Plot);
       console.log("Starring: " + JSON.parse(body).Actors);
     }
+    else {
+      return console.log('Error occurred: ' + err);
+    }
   })
+}
+
+// Function for Twitter API -- return latest 20 results
+function twitter() {
+  //Variables for the Twitter API
+  //Call to the Twitter API
+  //JSON Response
+    // If no error console log the tweets
+    // Else show error
 }
 
