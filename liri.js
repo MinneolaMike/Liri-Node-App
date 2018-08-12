@@ -1,41 +1,30 @@
-// Require for the dotenv module
+// Require for the dotenv package
 require("dotenv").config();
 
-// Variable to require request
-var request = require('request');
+// Global variable for the keys
+var keys = require("./keys");
 
-// Variable to require twitter module
-var Twitter = require('twitter');
-
-// Variable to requie spotify api
+//Global Varibales for necessary npm packages for the API's
+// var Twitter = require("twitter");
 var Spotify = require('node-spotify-api');
+var request = require("request");
 
-
-
-
-
-// ????from dotenv documentation
-const result = dotenv.config()
- 
-if (result.error) {
-  throw result.error
+// Variables for console arguements
+// Takes in the predetrmined phrases for each API
+var site = process.argv[2];
+// This will take in what is being searched for
+var searchTerm = process.argv;
+var search = "";
+// Loops over the searchTerm which begins at index[3]
+for (var i = 3; i < searchTerm.length; i++) {
+    // If more than one word it concatinates the searchTerm
+    if (i > 3 && i < searchTerm.length) {
+        search = search + "+" + searchTerm[i];
+    }
+    // If just one word
+    else {
+        search += searchTerm[i];
+    }
+  console.log(search);
 }
- 
-console.log(result.parsed)
 
-// ????from twitter npm documentation
-var params = { screen_name: 'nodejs' };
-client.get('statuses/user_timeline', params, function (error, tweets, response) {
-  if (!error) {
-    console.log(tweets);
-  }
-});
-
-// ?????From spotify npm documentation
-spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-  if (err) {
-    return console.log('Error occurred: ' + err);
-  }
- 
-console.log(data); 
-});
