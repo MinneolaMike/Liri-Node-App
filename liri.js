@@ -25,7 +25,7 @@ for (var i = 3; i < searchTerm.length; i++) {
   else {
     search += searchTerm[i];
   }
-  console.log(search);
+  // console.log(search);
 }
 
 // Function for Spotify API search
@@ -51,10 +51,32 @@ function spotify() {
   });
 }
 
-// Switch Statements based on site term to call the appropriate API function
+// Switch Statements based on siteStatement to call the appropriate API function
 switch (siteStatement) {
   case "spotify-this-song":
     spotify();
     break;
+  case "do-what-it-says":
+    doWhatItSays();
+    break;
+}
+
+// Function for the siteStatement "Do-what-it-says" which uses the search in the random.txt file 
+function doWhatItSays() {
+  // Variable and require for CORE Module fs("file systems") 
+  var fs = require("fs");
+  // readFile for random.txt
+  fs.readFile("./rondom.txt", "utf8", function (error, data) {
+    // If error occurs -- console log it
+    if (error) {
+      return console.log(error);
+    }
+    // Variable to reformat the content of random.txt
+    var random = data.split(",");
+    siteStatement = random[0];
+    search = random[1];
+    // Call for function spotify using the search from random.txt
+    spotify();
+  });
 }
 
