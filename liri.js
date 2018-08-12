@@ -11,20 +11,50 @@ var request = require("request");
 
 // Variables for console arguements
 // Takes in the predetrmined phrases for each API
-var site = process.argv[2];
+var siteStatement = process.argv[2];
 // This will take in what is being searched for
 var searchTerm = process.argv;
 var search = "";
 // Loops over the searchTerm which begins at index[3]
 for (var i = 3; i < searchTerm.length; i++) {
-    // If more than one word it concatinates the searchTerm
-    if (i > 3 && i < searchTerm.length) {
-        search = search + "+" + searchTerm[i];
-    }
-    // If just one word
-    else {
-        search += searchTerm[i];
-    }
+  // If more than one word it concatinates the searchTerm
+  if (i > 3 && i < searchTerm.length) {
+    search = search + "+" + searchTerm[i];
+  }
+  // If just one word
+  else {
+    search += searchTerm[i];
+  }
   console.log(search);
+}
+
+// Function for Spotify API search
+function spotify() {
+  // Variable to load the keys for  my spotify account  
+  var spotify = new Spotify(keys.spotify)
+  // Sets search equal to what is being searched for or "The sign" if nothing is inputed
+  search = search || "The Sign Ace Base";
+  // Call to the Spotify API based on search of track name
+  spotify.search({ type: 'track', query: search, limit: 1 }, function (err, data) {
+    // If error occurs -- console log it
+    if (err) {
+      return console.log('Error occurred: ' + err);
+    }
+    // loop over JSON response
+    for (var i = 0; i < data.tracks.items.length; i++) {
+      // Console logs Artist, song name, album name, and a preview link from the JSON response
+      console.log("Artist: " + data.tracks.items[i].artists[0].name);
+      console.log("Song name: " + data.tracks.items[i].name);
+      console.log("Album name: " + data.tracks.items[i].album.name);
+      console.log("Preview Link: " + data.tracks.items[i].preview_url);
+    }
+  });
+}
+
+// Switch Statements based on site term to call the appropriate API function
+switch (siteStatement) {
+  case "spotify-this-song":
+    spotify();
+    break;
 }
 
