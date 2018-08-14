@@ -1,4 +1,4 @@
-# Liri-Node-App
+# LIRI-Node-Bot
 
 ### This was a homework assignment for the UCF Coding Boot Camp. In this assignment we are using Node.js to access The OMDB API & Spotify API through the aid of NPM packages. Then using various search commands return a JSON response and console.log certain pieces of the response. We are also hiding keys using .env.
 
